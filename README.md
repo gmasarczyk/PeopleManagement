@@ -18,8 +18,12 @@ How to bulild entire solution?
 
 
 Architecture:
+
+Technologies:
 https://www.microsoft.com/net/learn/get-started/windows
 https://angular.io/guide/quickstart
+https://docs.microsoft.com/en-us/aspnet/core/
+https://docs.microsoft.com/en-us/ef/core/
 
 SPA application built in Angular hosted in ASP.NET Core web application.
 Data stored in file database (SqLite)
