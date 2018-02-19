@@ -223,7 +223,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var Configuration = /** @class */ (function () {
     function Configuration() {
-        this.ApiUri = document.baseURI + '/api/';
+        this.ApiUri = document.baseURI + 'api/';
         this.Person = this.ApiUri + "data";
         this.Configuration = this.ApiUri + "data/configuration";
         if (document.baseURI === 'http://localhost:4200/') {

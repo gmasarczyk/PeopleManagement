@@ -2,7 +2,7 @@
 @Injectable()
 export class Configuration {
 
-  public ApiUri: string = document.baseURI + '/api/';
+  public ApiUri: string = document.baseURI + 'api/';
   public Person: string = `${this.ApiUri}data`;
   public Configuration: string = `${this.ApiUri}data/configuration`;
   constructor() {
