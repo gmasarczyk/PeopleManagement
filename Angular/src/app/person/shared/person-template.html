@@ -1,0 +1,175 @@
+<div *ngIf="SelectedItem">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form (ngSubmit)="OnSubmit()" novalidate [formGroup]="personForm" class="form-horizontal">
+                <fieldset>
+                    <div *ngIf="errors">
+                        <div *ngFor="let error of errors">
+                            <span class="validation-errors">{{error}}
+                                <br> </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (personForm.get('firstName').touched || 
+                                                  personForm.get('firstName').dirty) &&
+                                                  !personForm.get('firstName').valid }">
+                        <label class="col-md-2 control-label" for="firstNameId">First Name</label>
+
+                        <div class="col-md-8">
+                            <input class="form-control" id="firstNameId" type="text" placeholder="First Name (required)" formControlName="firstName"
+                            />
+                            <span class="help-block" *ngIf="(personForm.get('firstName').touched || 
+                                                             personForm.get('firstName').dirty) && 
+                                                             personForm.get('firstName').errors">
+                                <span *ngIf="personForm.get('firstName').errors.required">
+                                    Please enter your first name.
+                                </span>
+                                <span *ngIf="personForm.get('firstName').errors.minlength">
+                                    The first name must be longer than 3 characters.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (personForm.get('lastName').touched || personForm.get('lastName').dirty) && !personForm.get('lastName').valid }">
+                        <label class="col-md-2 control-label" for="lastNameId">Last Name</label>
+
+                        <div class="col-md-8">
+                            <input class="form-control" id="lastNameId" type="text" placeholder="Last Name (required)" formControlName="lastName" />
+                            <span class="help-block" *ngIf="(personForm.get('lastName').touched || personForm.get('lastName').dirty) && personForm.get('lastName').errors">
+                                <span *ngIf="personForm.get('lastName').errors.required">
+                                    Please enter your last name.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div formGroupName="emailGroup" [ngClass]="{'has-error': personForm.get('emailGroup').errors }">
+                        <div class="form-group" [ngClass]="{'has-error': emailMessage}">
+                            <label class="col-md-2 control-label" for="emailId">Email</label>
+
+                            <div class="col-md-8">
+                                <input class="form-control" id="emailId" type="email" placeholder="Email (required)" formControlName="email" />
+                                <span class="help-block" *ngIf="emailMessage">
+                                    {{ emailMessage }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" [ngClass]="{'has-error': (personForm.get('emailGroup.confirmEmail').touched || 
+                                                  personForm.get('emailGroup.confirmEmail').dirty) && 
+                                                  !personForm.get('emailGroup.confirmEmail').valid }">
+                            <label class="col-md-2 control-label" for="confirmEmailId">Confirm Email</label>
+
+                            <div class="col-md-8">
+                                <input class="form-control" id="confirmEmailId" type="email" placeholder="Confirm Email (required)" formControlName="confirmEmail"
+                                />
+                                <span class="help-block" *ngIf="(personForm.get('emailGroup.confirmEmail').touched || 
+                                                            personForm.get('emailGroup.confirmEmail').dirty) && 
+                                                            (personForm.get('emailGroup.confirmEmail').errors ||
+                                                             personForm.get('emailGroup').errors)">
+                                    <span *ngIf="personForm.get('emailGroup.confirmEmail').errors?.required">
+                                        Please confirm your email address.
+                                    </span>
+                                    <span *ngIf="personForm.get('emailGroup').errors?.match">
+                                        The confirmation does not match the email address.
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': !personForm.get('mobilePhone').valid }">
+                        <label class="col-md-2 control-label" for="mobilePhoneId">Phone</label>
+
+                        <div class="col-md-8">
+                            <input class="form-control" id="mobilePhoneId" type="tel" placeholder="Phone" formControlName="mobilePhone" />
+                            <span class="help-block" *ngIf="personForm.get('mobilePhone').errors">
+                                <span *ngIf="personForm.get('mobilePhone').errors.required">
+                                    Please enter your phone number.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Main contact channel</label>
+                        <div class="col-md-8">
+                            <label class="radio-inline">
+                                <input type="radio" value="email" formControlName="notification">Email
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" value="text" formControlName="notification">Text
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (personForm.get('city').touched || personForm.get('city').dirty) && !personForm.get('city').valid }">
+                        <label class="col-md-2 control-label" for="cityId">City</label>
+
+                        <div class="col-md-8">
+                            <input class="form-control" id="cityId" type="text" placeholder="City (required)" formControlName="city" />
+                            <span class="help-block" *ngIf="(personForm.get('city').touched || personForm.get('city').dirty) && personForm.get('city').errors">
+                                <span *ngIf="personForm.get('city').errors.required">
+                                    Please enter city name.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (personForm.get('postalCode').touched || personForm.get('postalCode').dirty) && !personForm.get('postalCode').valid }">
+                        <label class="col-md-2 control-label" for="postalCodeId">Postal code</label>
+
+                        <div class="col-md-8">
+                            <input class="form-control" id="postalCodeId" type="text" placeholder="postalCode (required)" formControlName="postalCode"
+                            />
+                            <span class="help-block" *ngIf="(personForm.get('postalCode').touched || personForm.get('postalCode').dirty) && personForm.get('postalCode').errors">
+                                <span *ngIf="personForm.get('postalCode').errors.required">
+                                    Please enter postal code name.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (personForm.get('street').touched || personForm.get('street').dirty) && !personForm.get('street').valid }">
+                        <label class="col-md-2 control-label" for="streetId">Street</label>
+
+                        <div class="col-md-8">
+                            <input class="form-control" id="streetId" type="text" placeholder="street (required)" formControlName="street" />
+                            <span class="help-block" *ngIf="(personForm.get('street').touched || personForm.get('street').dirty) && personForm.get('street').errors">
+                                <span *ngIf="personForm.get('street').errors.required">
+                                    Please enter street name.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [ngClass]="{'has-error': (personForm.get('homeNumber').touched || personForm.get('homeNumber').dirty) && !personForm.get('homeNumber').valid }">
+                        <label class="col-md-2 control-label" for="homeNumberId">Home number</label>
+
+                        <div class="col-md-8">
+                            <input class="form-control" id="homeNumberId" type="text" placeholder="homeNumber (required)" formControlName="homeNumber"
+                            />
+                            <span class="help-block" *ngIf="(personForm.get('homeNumber').touched || personForm.get('homeNumber').dirty) && personForm.get('homeNumber').errors">
+                                <span *ngIf="personForm.get('homeNumber').errors.required">
+                                    Please enter home number name.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-danger" (click)="GoBack()">
+                            <i class="fa fa-arrow-left"></i>Cancel
+                        </button>
+
+                        <button type="submit" class="btn btn-success" [disabled]="!personForm.valid">
+                            <i class="fa fa-floppy-o fa-lg"></i>Save
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

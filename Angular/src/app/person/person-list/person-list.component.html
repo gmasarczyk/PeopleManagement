@@ -1,0 +1,92 @@
+<div>
+  <div class="row">
+    <div class="col-md-3 col-lg-3">
+      <div class="bottom-buffer">
+        <!--<div class ="panel-body">-->
+
+        <!--</div>-->
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <i class="fa fa-filter" aria-hidden="true"></i>FILTERS</h3>
+        </div>
+
+        <div class="panel-body filter-panel-body">
+          <form (ngSubmit)="OnSubmitSearch()">
+            <div class="form-row">
+              <label for="name" class="filter-label">Last name:</label>
+              <div>
+                <input id="searchInput" type="text" class="form-control" [(ngModel)]="params.lastName" name="lastName">
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="area" class="filter-label">City</label>
+              <div>
+                <select class="form-control" [(ngModel)]="params.city" name="city">
+                  <option [ngValue]="null"></option>
+                  <option *ngFor="let city of Config.cities" [value]="city.name"> {{city.name}} </option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div>
+            </div>
+            <br>
+            <div class="form-row">
+              <button type="submit" class="btn btn-primary pull-right ">
+                <i class="fa fa-search fa-lg"></i>Search</button>
+              <div (click)="OnCleanFilters()" class="btn btn-default pull-right  btn-link" title="Clear filters panel">
+                <i class="fa fa-times fa-lg"></i>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="btn btn-primary col-sm-12" (click)="OnNewPerson()">
+        <i class="fa fa-plus fa-lg"></i> New person
+      </div>
+
+
+    </div>
+
+    <div class="col-md-9 col-lg-9">
+      <div class="panel panel-default">
+        <div class="panel-body gray-background">
+          <div class="row top_bottom-buffer" *ngIf="pagingInfo.pageSize">
+            <div class="pull-left">
+              <pagination-controls (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true" autoHide="true" previousLabel="Previous"
+                nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+              </pagination-controls>
+            </div>
+            <div class="pull-right top-right-buffer">
+              <select placeholder="Page size" [(ngModel)]="pagingInfo.pageSize" name="pageSize" (change)="pageSizeChanged($event.value)">
+                <option [value]="20">20</option>
+                <option [value]="50">50</option>
+                <option [value]="100">100</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover ">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>City</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let person of PersonsTab | paginate: { totalItems: pagingInfo.totalCount, itemsPerPage: pagingInfo.pageSize, currentPage: pagingInfo.currentPage }; let i = index"
+                  (click)="OnSelect(person)">
+                  <td>{{person.firstName}} {{person.lastName}}</td>
+                  <td>{{person.city}} </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

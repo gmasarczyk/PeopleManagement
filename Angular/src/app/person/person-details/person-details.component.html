@@ -1,0 +1,32 @@
+<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <button (click)="GoBack()" class="btn btn-default btn-xs">
+                            <i class="fa fa-arrow-circle-left"></i>Back</button> &nbsp; Person details
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-1 row-verticaly-centered">
+                            <i class="fa fa-male fa-5x"></i>
+                        </div>
+                        <div>
+                            {{SelectedItem?.firstName}} {{SelectedItem?.lastName}}
+                            <br *ngIf="SelectedItem?.firstName || SelectedItem?.lastName"> {{SelectedItem?.street}}&nbsp;{{SelectedItem?.homeNumber}},&nbsp;{{SelectedItem?.postalCode
+                            | postalCode}}&nbsp;{{SelectedItem?.city}}
+                            <br> E-mail: {{SelectedItem?.email}}
+                            <br> Mobile phone: {{SelectedItem?.mobilePhone}}
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button (click)="OnEditPerson()" class="btn btn-sm btn-primary">
+                            <i class="fa fa-pencil fa-fw"> </i>Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
